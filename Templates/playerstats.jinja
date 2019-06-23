@@ -1,4 +1,7 @@
-
+<h1>
+Your Last 20 Matches
+</h1>
+<ol>
 {% for entry in last20 %}
     <li>
 
@@ -7,7 +10,7 @@
 
     </li>
 {% endfor %}
-
+</ol>
 {%if last20|length == 0 %}
 
     No Matches Recorded or invalid player ID
