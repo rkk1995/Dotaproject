@@ -1,0 +1,19 @@
+
+{% for entry in last20 %}
+    <li>
+
+
+        <a href= "https://www.dotabuff.com/matches/{{entry.match_id}}"> {{ entry.match_id }}  </a>
+
+    </li>
+{% endfor %}
+
+{%if last20|length == 0 %}
+
+    No Matches Recorded or invalid player ID
+    <br>
+    <br>
+    <br>
+    <a href = "https://steamid.io"> Find SteamID3 here </a>
+
+{% endif %}
