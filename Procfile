@@ -1,1 +1,1 @@
-'web: gunicorn dota2project.wsgi --log-file -' 
+'web: gunicorn dotaproject.wsgi --log-file -' 
