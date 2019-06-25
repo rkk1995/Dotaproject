@@ -10,3 +10,5 @@ django = "==2.1"
 
 [requires]
 python_version = "3.7"
+
+ $ heroku config:set DISABLE_COLLECTSTATIC=1
