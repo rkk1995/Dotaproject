@@ -14,3 +14,4 @@ Stats page of a player:
 
 
 
+(The hyperlinks are matchids)
