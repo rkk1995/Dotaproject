@@ -10,6 +10,9 @@ Homepage: Enter your STEAMID3 (Can be found in Dota 2 Client or simply convert y
 
 
 Stats page of a player
+
+
+
 ![Your Stats Page](http://puu.sh/DNCuI/688c22ae15.png)
 
 
