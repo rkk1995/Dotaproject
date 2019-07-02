@@ -13,11 +13,6 @@ Stats page of a player:
 ![Your Stats Page](http://puu.sh/DNCuI/688c22ae15.png)
 
 
-<<<<<<< HEAD
 Plan to host it when its more finished. You can run it on your own machine by cloning the repository and running 2 commands.
 1) Pipenv Shell
 2) python manage.py runserver
-=======
-
-(The hyperlinks are matchids)
->>>>>>> 48d8e88069ae6af972b242fb40737af4a3e74f0b
