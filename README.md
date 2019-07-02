@@ -13,4 +13,6 @@ Stats page of a player:
 ![Your Stats Page](http://puu.sh/DNCuI/688c22ae15.png)
 
 
-
+Plan to host it when its more finished. You can run it on your own machine by cloning the repository and running 2 commands.
+1) Pipenv Shell
+2) python manage.py runserver
