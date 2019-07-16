@@ -86,7 +86,10 @@ def ReportNewMatches():
             for follower in PlayerFollowerData[player]["Followers"]:
                 api.update_status('@' + api.get_user(follower).screen_name + ' ' + PlayerFollowerData[player]['Name'] + ' just played a match! ' + 'https://www.dotabuff.com/matches/' + str(latestmatch))
             PlayerFollowerData[player]["LastMatch"] = latestmatch
-        
+            with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
+                pickle.dump(PlayerFollowerData, myFile)
+            print(PlayerFollowerData)
+
 
 
 
