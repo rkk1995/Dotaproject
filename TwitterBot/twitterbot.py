@@ -50,7 +50,12 @@ def UpdateDatabase():
         for r in (("@" + bot_screen_name.lower() + ' ',''), (' ', '')):
             player = player.replace(*r)
         player = ''.join(c for c in player if c.isnumeric())
-        player = int(player)
+        if player is not '': 
+            player = int(player)
+        else:
+            continue
+        
+        
         #now have user_id of tweeter, screen_name of host account, player steam id
         #print(user_id, screen_name, player)
         last_seen_id = mention.id
