@@ -15,15 +15,17 @@ import os
 dirname = os.path.dirname(__file__)
 
 
-PlayerFollowerData = {}
+#PlayerFollowerData = {}
 
 #Saves PlayerFollowerData
 # with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
 #     pickle.dump(PlayerFollowerData, myFile)
 
-#Loads PlayerFollowerData
-# with open(os.path.join(dirname, "PlayerFollowerData.txt"), "rb") as myFile:
-#     PlayerFollowerData = pickle.load(myFile)
+# #Loads PlayerFollowerData
+with open(os.path.join(dirname, "PlayerFollowerData.txt"), "rb") as myFile:
+    PlayerFollowerData = pickle.load(myFile)
+
+PlayerFollowerData[87278757]['LastMatch'] = 2222222
 
 with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
     pickle.dump(PlayerFollowerData, myFile)

@@ -73,7 +73,7 @@ def UpdateDatabase():
         #else:
             #tWEeTBackuserhas never played or invalid. Find steamid3 here : liNk
     store_last_seen_id(last_seen_id, lastseen)
-    print(PlayerFollowerData)
+    #print(PlayerFollowerData)
 
     with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
         pickle.dump(PlayerFollowerData, myFile)
@@ -88,7 +88,8 @@ def ReportNewMatches():
             PlayerFollowerData[player]["LastMatch"] = latestmatch
             with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
                 pickle.dump(PlayerFollowerData, myFile)
-            print(PlayerFollowerData)
+            #print(PlayerFollowerData)
+            print('database updated, tweet sent')
 
 
 
