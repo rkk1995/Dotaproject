@@ -6,3 +6,6 @@ Whenever said player plays a match from the time you tweeted, you'll be notified
 
 Example: http://puu.sh/DTr9l/c78861a7db.png
 
+![Alt text](http://puu.sh/DTr9l/c78861a7db.png "Optional title")
+
+
