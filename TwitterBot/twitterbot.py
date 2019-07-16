@@ -41,6 +41,8 @@ def UpdateDatabase():
     last_seen_id = retrieve_last_seen_id(lastseen)
     mentions = api.mentions_timeline(last_seen_id,tweet_mode='extended')
     for mention in reversed(mentions):
+        last_seen_id = mention.id
+        store_last_seen_id(last_seen_id, lastseen)
         print(str(mention.id) + ' - ' + mention.full_text, flush=True)
         #id of tweeter/user
         user_id = mention.author.id
@@ -77,7 +79,6 @@ def UpdateDatabase():
                 PlayerFollowerData[player]['Followers'].append(user_id)
         #else:
             #tWEeTBackuserhas never played or invalid. Find steamid3 here : liNk
-    store_last_seen_id(last_seen_id, lastseen)
     #print(PlayerFollowerData)
 
     with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
