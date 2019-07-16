@@ -1,7 +1,8 @@
 import pickle
 import os
 
-#initialize playerdata file
+#Reinitialize playerdata file in format
+#PlayerFollowerData = { "Player" : {"LastMatch" : 12345 , "Followers" : ["User_Id1", "User_Id2"]}}
 
 # mentions[i]
 # id gives tweet id 
@@ -14,14 +15,18 @@ import os
 dirname = os.path.dirname(__file__)
 
 
-# PlayerFollowerData = { "Player" : {"LastMatch" : 12345 , "Followers" : ["User_Id1", "User_Id2"]}}
+PlayerFollowerData = {}
 
+#Saves PlayerFollowerData
 # with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
 #     pickle.dump(PlayerFollowerData, myFile)
 
-with open(os.path.join(dirname, "PlayerFollowerData.txt"), "rb") as myFile:
-    PlayerFollowerData = pickle.load(myFile)
+#Loads PlayerFollowerData
+# with open(os.path.join(dirname, "PlayerFollowerData.txt"), "rb") as myFile:
+#     PlayerFollowerData = pickle.load(myFile)
 
+with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
+    pickle.dump(PlayerFollowerData, myFile)
 
 
 print(PlayerFollowerData)

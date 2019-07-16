@@ -2,6 +2,7 @@ import tweepy
 import time
 import os
 import pickle
+import requests, json
 
 #keys for throwaway account, feel free to use
 CONSUMER_KEY = 'vCysD6IMgXRfRfVe9WxMT8HEK'
@@ -34,8 +35,8 @@ def store_last_seen_id(last_seen_id, file_name):
     return
 
 
-def reply_to_tweets():
-    print('retrieving and replying to tweets...', flush=True)
+def UpdateDatabase():
+    print('scanning tweets & updating database...', flush=True)
     # DEV NOTE: use 12345 as last_seen_id for testing.
     last_seen_id = retrieve_last_seen_id(lastseen)
     mentions = api.mentions_timeline(last_seen_id,tweet_mode='extended')
@@ -43,54 +44,53 @@ def reply_to_tweets():
         print(str(mention.id) + ' - ' + mention.full_text, flush=True)
         #id of tweeter/user
         user_id = mention.author.id
-        screen_name = mention.author.screen_name
+        bot_screen_name = mention.in_reply_to_screen_name
         #steamid of player user wants to track
         player = mention.full_text.lower()
-        for r in (("@" + screen_name.lower() + ' ',''), (' ', '')):
+        for r in (("@" + bot_screen_name.lower() + ' ',''), (' ', '')):
             player = player.replace(*r)
-        #now have user+id, screen_name, player
-        print(user_id, screen_name, player)
+        player = ''.join(c for c in player if c.isnumeric())
+        player = int(player)
+        #now have user_id of tweeter, screen_name of host account, player steam id
+        #print(user_id, screen_name, player)
         last_seen_id = mention.id
 
-        if player not in PlayerFollowerData.keys():
-            PlayerFollowerData[player] = {"LastMatch" : 'test', "Followers" : [user_id]}
-        else:
-            PlayerFollowerData[player]['Followers'].append(user_id)
+        #populating database
 
+        r = requests.get("https://api.opendota.com/api/players/" + str(player) +"/matches/?limit=1")
+        if len(json.loads(r.text))==1:
+            lastmatch = json.loads(r.text)[0]['match_id']
+            profile = json.loads(requests.get("https://api.opendota.com/api/players/" + str(player)).text)['profile']
+            if profile['name'] is not None:
+                playername = profile['name']
+            else:
+                playername = profile['personaname']
 
+            if player not in PlayerFollowerData.keys():
+                PlayerFollowerData[player] = {"LastMatch" : lastmatch, "Followers" : [user_id], "Name" : playername}
+            else:
+                PlayerFollowerData[player]['Followers'].append(user_id)
+        #else:
+            #tWEeTBackuserhas never played or invalid. Find steamid3 here : liNk
     store_last_seen_id(last_seen_id, lastseen)
     print(PlayerFollowerData)
 
     with open(os.path.join(dirname, "PlayerFollowerData.txt"), "wb") as myFile:
         pickle.dump(PlayerFollowerData, myFile)
 
-
-
-# def checktweets():
-#     # function adds players to database and associates player with tweeter
-#     # SteamID3s have 9 numbers, ie 177648913
-#     print('retrieving and replying to tweets...', flush=True)
-#     # DEV NOTE: use 12345 as last_seen_id for testing.
-#     last_seen_id = retrieve_last_seen_id(lastseen)
-#     mentions = api.mentions_timeline(
-#                         last_seen_id,
-#                         tweet_mode='extended')
-#     for mention in reversed(mentions):
-#         print(str(mention.id) + ' - ' + mention.full_text, flush=True)
-#         user_id = mention.author.id
-#         screen_name = mention.author.screen_name
-
-#         print(user_id,screen_name)
-#         last_seen_id = mention.id
-#         store_last_seen_id(last_seen_id, lastseen)
-#         if '#helloworld' in mention.full_text.lower():
-#             print('found #helloworld!', flush=True)
-#             print('responding back...', flush=True)
-#             api.update_status('@' + mention.user.screen_name +
-#                     ' #dog back to you!', mention.id)
+def ReportNewMatches():
+    print('Discovering new matches...')
+    for player in PlayerFollowerData:
+        latestmatch = json.loads((requests.get("https://api.opendota.com/api/players/" + str(player) +"/matches/?limit=1").text))[0]['match_id']
+        if PlayerFollowerData[player]["LastMatch"] != latestmatch:
+            for follower in PlayerFollowerData[player]["Followers"]:
+                api.update_status('@' + api.get_user(follower).screen_name + ' ' + PlayerFollowerData[player]['Name'] + ' just played a match! ' + 'https://www.dotabuff.com/matches/' + str(latestmatch))
+            PlayerFollowerData[player]["LastMatch"] = latestmatch
+        
 
 
 
 while True:
-    reply_to_tweets()
+    UpdateDatabase()
+    ReportNewMatches()
     time.sleep(15)
