@@ -39,52 +39,58 @@
                 </div>
 
                 <div class="live_match_players">
-                    <div class="live_match_player">
-                        <div class="live_match_player_portrait radiant">
-                            
-                                <a href="/hero/Nature's Prophet" title="Nature's Prophet">
-                                    <img src="http://cdn.dota2.com/apps/dota2/images/heroes/furion_vert.jpg">
-                                </a>
-                            
-                        </div>
-                        <div class="live_match_player_info radiant">
-                            <div class="live_match_player_name">
-                                <a href="/player/monkeys-forever" title="monkeys-forever">monkeys-forever</a>
-                                <span>
+                    {% for player in match.Pro_Players %} 
+                        <div class="live_match_player">
+                            {% if player.player_slot <= 4%}
+                                <div class="live_match_player_portrait radiant">
                                     
-                                        Nature's Prophet
+                                        <a href="/hero/Nature's Prophet" title="Nature's Prophet">
+                                            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/furion_vert.jpg">
+                                        </a>
                                     
-                                </span>
+                                </div>
+                                <div class="live_match_player_info radiant">
+                                    <div class="live_match_player_name">
+                                        <a href="/player/monkeys-forever" title={{player.playername}}>{{player.playername}}</a>
+                                        <span>
+                                            
+                                                {{player.hero_id}}
+                                            
+                                        </span>
+                                    </div>
+                                    <div class="live_match_player_stats">{{player.kills}}/{{player.deaths}}/{{player.assists}}</div>
+                                    <div class="live_match_player_level">Level {{player.level}}</div>
+                                    <div class="live_match_player_side_icon"><img src="/static/images/radiant.png"></div>
+                                </div>
+                            {% else %}
+                                <div class="live_match_player_portrait dire">
+            
+                                    <a href="/hero/Phoenix" title="Phoenix">
+                                        <img src="http://cdn.dota2.com/apps/dota2/images/heroes/phoenix_vert.jpg">
+                                    </a>
+                                
+                                </div>
+                                <div class="live_match_player_info dire">
+                                    <div class="live_match_player_name">
+                                        <a href="/player/ixmike88" title={{player.playername}}>{{player.playername}}</a>
+                                        <span>
+                                        
+                                            {{player.hero_id}}
+
+                                        
+                                        </span>
+                                </div>
+                                <div class="live_match_player_stats">{{player.kills}}/{{player.deaths}}/{{player.assists}}</div>
+                                <div class="live_match_player_level">Level {{player.level}}</div>
+                                <div class="live_match_player_side_icon"><img src="/static/images/dire.png"></div>
                             </div>
-                            <div class="live_match_player_stats">4/6/11</div>
-                            <div class="live_match_player_level">Level 19</div>
-                            <div class="live_match_player_side_icon"><img src="/static/images/radiant.png"></div>
+                            {% endif %}
+
                         </div>
-                    </div>
-                
-                    <div class="live_match_player">
-                        <div class="live_match_player_portrait dire">
-        
-                                <a href="/hero/Phoenix" title="Phoenix">
-                                    <img src="http://cdn.dota2.com/apps/dota2/images/heroes/phoenix_vert.jpg">
-                                </a>
-                            
-                        </div>
-                        <div class="live_match_player_info dire">
-                            <div class="live_match_player_name">
-                                <a href="/player/ixmike88" title="ixmike88">ixmike88</a>
-                            <span>
-                                    
-                                        Phoenix
-                                    
-                                </span>
-                            </div>
-                            <div class="live_match_player_stats">2/9/17</div>
-                            <div class="live_match_player_level">Level 15</div>
-                            <div class="live_match_player_side_icon"><img src="/static/images/dire.png"></div>
-                        </div>
-                    </div>
+                    {% endfor %}    
                 </div>
+
+                <div class="console">console: watch_server {{match.server_steam_id}}</div>
             </div>
         {% endfor %}
     </div>
