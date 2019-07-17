@@ -24,96 +24,69 @@
         <div id="left_head">
             Live Games With Pros
         </div>
-        {% for entry in last20 %}
+        {% for match in livematches %}
 
-        <div class="live_match">
+            <div class="live_match">
 
-            <div class="live_match_info">
-                <div>{2000} <span>avg MMR</span></div>
-                
-                    drafting
-                
-            </div>
+                <div class="live_match_info">
+                    <div>{{match.average_mmr}} <span>avg MMR</span></div>
+                    
+                    {% if match.game_time <= 10 %}
+                        drafting
+                    {% else %}
+                        {{match.game_time}} 
+                    {% endif %}
+                </div>
 
-        
-            <div class="live_match_players">
-                
+                <div class="live_match_players">
                     <div class="live_match_player">
                         <div class="live_match_player_portrait radiant">
                             
-
+                                <a href="/hero/Nature's Prophet" title="Nature's Prophet">
+                                    <img src="http://cdn.dota2.com/apps/dota2/images/heroes/furion_vert.jpg">
+                                </a>
                             
                         </div>
                         <div class="live_match_player_info radiant">
                             <div class="live_match_player_name">
-                                <a href="/player/Arteezy" title="Arteezy">Arteezy</a>
+                                <a href="/player/monkeys-forever" title="monkeys-forever">monkeys-forever</a>
                                 <span>
                                     
-                                        Not picked yet
+                                        Nature's Prophet
                                     
                                 </span>
                             </div>
-
-                            <div class="live_match_player_stats">0/0/0</div>
-                            <div class="live_match_player_level">Level 0</div>
+                            <div class="live_match_player_stats">4/6/11</div>
+                            <div class="live_match_player_level">Level 19</div>
                             <div class="live_match_player_side_icon"><img src="/static/images/radiant.png"></div>
                         </div>
                     </div>
                 
-
-                
-                        <div class="live_match_player">
-                            <div class="live_match_player_portrait dire">
-                                
-
-                                
-                            </div>
-                            <div class="live_match_player_info dire">
-                                <div class="live_match_player_name">
-                                    <a href="/player/Meracle" title="Meracle">Meracle</a>
-                                <span>
-                                        
-                                            Not picked yet
-                                        
-                                    </span>
-                                </div>
-
-                                <div class="live_match_player_stats">0/0/0</div>
-                                <div class="live_match_player_level">Level 0</div>
-                                <div class="live_match_player_side_icon"><img src="/static/images/dire.png"></div>
-                            </div>
+                    <div class="live_match_player">
+                        <div class="live_match_player_portrait dire">
+        
+                                <a href="/hero/Phoenix" title="Phoenix">
+                                    <img src="http://cdn.dota2.com/apps/dota2/images/heroes/phoenix_vert.jpg">
+                                </a>
+                            
                         </div>
-                    
-                        <div class="live_match_player">
-                            <div class="live_match_player_portrait dire">
-                                
-
-                                
+                        <div class="live_match_player_info dire">
+                            <div class="live_match_player_name">
+                                <a href="/player/ixmike88" title="ixmike88">ixmike88</a>
+                            <span>
+                                    
+                                        Phoenix
+                                    
+                                </span>
                             </div>
-                            <div class="live_match_player_info dire">
-                                <div class="live_match_player_name">
-                                    <a href="/player/monkeys-forever" title="monkeys-forever">monkeys-forever</a>
-                                <span>
-                                        
-                                            Not picked yet
-                                        
-                                    </span>
-                                </div>
-
-                                <div class="live_match_player_stats">0/0/0</div>
-                                <div class="live_match_player_level">Level 0</div>
-                                <div class="live_match_player_side_icon"><img src="/static/images/dire.png"></div>
-                            </div>
+                            <div class="live_match_player_stats">2/9/17</div>
+                            <div class="live_match_player_level">Level 15</div>
+                            <div class="live_match_player_side_icon"><img src="/static/images/dire.png"></div>
+                        </div>
                     </div>
-                
-
-
-
-
-        
-        
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 
 </div>

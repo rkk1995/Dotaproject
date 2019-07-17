@@ -22,17 +22,20 @@ with open(os.path.join(dirname, "PlayerFollowerData.txt"), "rb") as myFile:
 
 
 def retrieve_last_seen_id(file_name):
-    f_read = open(file_name, 'r')
-    last_seen_id = int(f_read.read().strip())
-    f_read.close()
+    with open(file_name,'r') as f:
+        last_seen_id = f.read().strip()
     return last_seen_id
+
+    # f_read = open(file_name, 'r')
+    # last_seen_id = int(f_read.read().strip())
+    # f_read.close()
+    # return last_seen_id
 
 
 def store_last_seen_id(last_seen_id, file_name):
-    f_write = open(file_name, 'w')
-    f_write.write(str(last_seen_id))
-    f_write.close()
-    return
+    with open(file_name,'w') as f:
+        f.write(str(last_seen_id))  
+
 
 
 def UpdateDatabase():
