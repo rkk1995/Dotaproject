@@ -22,10 +22,10 @@ from playerid.views import myView, playerData, getplayerid
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', myView),
-    path('players/<int:player_id>/', playerData),
+    path('home/', myView),
+    path('players2/<int:player_id>/', playerData),
     path('getplayerid/',getplayerid),
-    path('protracker/', include('protracker.urls')),
+    path('', include('protracker.urls')),
 
 ]
 

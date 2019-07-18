@@ -42,7 +42,7 @@ def index(request):
      r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?key=" + key + "&partner=0")
      livematches = json.loads(r.text)['game_list']
      currentgames = []
-
+    
      for i in livematches:
           total = GetProPlayersFromMatch(i)
           if total:

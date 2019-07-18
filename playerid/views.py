@@ -14,4 +14,4 @@ def playerData(request, player_id):
 
 def getplayerid(request):
     content = request.POST.get('content')
-    return redirect('/players/{}/'.format(content))
+    return redirect('/players2/{}/'.format(content))
