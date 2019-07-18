@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-import requests
-import json, os, pickle
+from protracker.databases.timeconverter import converttime
+import requests, json, os, pickle
 
-dirname = os.path.dirname(__file__)
+dirname = os.path.dirname(__file__) + "/databases"
+
+with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
+    HeroImageDict = pickle.load(myFile)
 
 with open(os.path.join(dirname, "ProPlayerDict.txt"), "rb") as myFile:
-       ProPlayerDict = pickle.load(myFile)
+    ProPlayerDict = pickle.load(myFile)
 
 key = "BDAECC2049E139D32D5D7AEDEFC23304"
-
 
 
 def GetProPlayersFromMatch(data):
@@ -33,7 +35,7 @@ def GetProPlayersFromMatch(data):
                 team = 1
             playerprofile = teams[team]['players'][playerslot]
             player.update([ ('kills', playerprofile['kill_count']), ('deaths', playerprofile['death_count']), ('assists', playerprofile['assists_count']), ('level', playerprofile['level'])])
-        gameinfo.update([ ('server_steam_id', game['server_steam_id']) , ('average_mmr', game['average_mmr']) , ('game_time', game['game_time']), ('radiant', game['radiant_score']), ('dire', game['dire_score']), ('Pro_Players', allplayers) ] )
+        gameinfo.update([ ('server_steam_id', game['server_steam_id']) , ('average_mmr', game['average_mmr']) , ('game_time', converttime(game['game_time'])), ('radiant', game['radiant_score']), ('dire', game['dire_score']), ('Pro_Players', allplayers) ] )
     print(gameinfo)
     return gameinfo
 
@@ -47,4 +49,4 @@ def index(request):
           total = GetProPlayersFromMatch(i)
           if total:
                currentgames.append(total)
-     return render(request, 'protracker.jinja', {'livematches': currentgames} )
+     return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict} )

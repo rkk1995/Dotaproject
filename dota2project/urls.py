@@ -20,13 +20,14 @@ from django.urls import path, include
 from playerid.views import myView, playerData, getplayerid
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', myView),
     path('players2/<int:player_id>/', playerData),
     path('getplayerid/',getplayerid),
     path('', include('protracker.urls')),
-
+    path('test/', include('TESTPROTRACKER.urls')),
 ]
 
 if settings.DEBUG:
