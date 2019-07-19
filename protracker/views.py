@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from protracker.databases.timeconverter import converttime
+from protracker.services.ProTrackerFunctions import converttime
 import requests, json, os, pickle
 
 dirname = os.path.dirname(__file__) + "/databases"
@@ -15,7 +15,7 @@ key = "BDAECC2049E139D32D5D7AEDEFC23304"
 
 
 def GetProPlayersFromMatch(data):
-    game = data 
+    game = data
     players = data['players']
     allplayers = []
     gameinfo = {}
@@ -41,12 +41,13 @@ def GetProPlayersFromMatch(data):
 
 def index(request):
 
-     r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?key=" + key + "&partner=0")
-     livematches = json.loads(r.text)['game_list']
-     currentgames = []
-    
-     for i in livematches:
-          total = GetProPlayersFromMatch(i)
-          if total:
-               currentgames.append(total)
-     return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict} )
+    r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?key=" + key + "&partner=0")
+    livematches = json.loads(r.text)['game_list']
+    currentgames = []
+
+    for i in livematches:
+        total = GetProPlayersFromMatch(i)
+        if total:
+            currentgames.append(total)
+
+    return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict} )
