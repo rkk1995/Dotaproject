@@ -18,4 +18,4 @@ with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
 with open(os.path.join(dirname, "currentgames.txt"), "rb") as myFile:
     currentgames = pickle.load(myFile)
 
-print(HeroImageDict)
+print(currentgames)
