@@ -3,10 +3,11 @@ import json, os, pickle
 
 #Creates Hero Image Dictionary
 
-key = "BDAECC2049E139D32D5D7AEDEFC23304"
-r = requests.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=BDAECC2049E139D32D5D7AEDEFC23304&language=en")
-b = json.loads(r.text)['result']['heroes']
+# key = "BDAECC2049E139D32D5D7AEDEFC23304"
+# r = requests.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=BDAECC2049E139D32D5D7AEDEFC23304&language=en")
+# b = json.loads(r.text)['result']['heroes']
 dirname = os.path.dirname(__file__)
+
 print(dirname)
 
 # HeroImageDict = {}
@@ -20,7 +21,13 @@ print(dirname)
 # with open(os.path.join(dirname, "HeroImageDict.txt"), "wb") as myFile:
 #     pickle.dump(HeroImageDict, myFile)
 
-with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
+# with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
+#     HeroImageDict = pickle.load(myFile)
+
+# print(HeroImageDict.keys())
+
+
+with open(os.path.join(dirname, "Livematches.txt"), "rb") as myFile:
     HeroImageDict = pickle.load(myFile)
 
-print(HeroImageDict.keys())
+print(HeroImageDict)

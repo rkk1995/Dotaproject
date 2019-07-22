@@ -5,7 +5,16 @@ class Hero(models.Model):
     hero_id = models.IntegerField()
     def __str__(self):
         return str(self.hero_id)
- 
+        
+    def get_winrate(self):
+        wins = self.wins.count()
+        losses = self.losts.count()
+        if wins + losses != 0:
+            return int((wins/(wins+losses))*100)
+        else:
+            return 0 
+    winrate = property(get_winrate)
+
 class Match(models.Model):
     match_id = models.IntegerField()
     match_date = models.DateTimeField('Match Date')
@@ -16,3 +25,6 @@ class Match(models.Model):
 
 
 
+class LiveMatch(models.Model):
+    counter = models.IntegerField(default = 1)
+    myList = models.TextField(null=True)
