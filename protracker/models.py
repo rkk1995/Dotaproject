@@ -12,9 +12,14 @@ class Hero(models.Model):
         if wins + losses != 0:
             return int((wins/(wins+losses))*100)
         else:
-            return 0 
+            return 0
+    def totalgames(self):
+        return self.wins.count() + self.losts.count()
+    def totalwins(self):
+        return self.wins.count()
     winrate = property(get_winrate)
-
+    totalwins = property(totalwins)
+    totalgames = property(totalgames)    
 class Match(models.Model):
     match_id = models.IntegerField()
     match_date = models.IntegerField('Match Date')

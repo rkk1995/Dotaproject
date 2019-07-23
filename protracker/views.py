@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from protracker.ProTrackerFunctions import converttime
 import requests, json, os, pickle
-from protracker.models import LiveMatch
+from protracker.models import LiveMatch, MatchesToGet, Match, Hero
+from django.db.models import Count
 
 dirname = os.path.dirname(__file__) + "/databases"
 
@@ -12,7 +13,7 @@ with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
 # with open(os.path.join(dirname, "ProPlayerDict.txt"), "rb") as myFile:
 #     ProPlayerDict = pickle.load(myFile)
 
-# key = "BDAECC2049E139D32D5D7AEDEFC23304"
+key = "BDAECC2049E139D32D5D7AEDEFC23304"
 
 
 # def GetProPlayersFromMatch(data):
@@ -43,6 +44,11 @@ with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
 def index(request):
     a = LiveMatch.objects.get(counter=1).myList
     currentgames = json.decoder.JSONDecoder().decode(a)
+    totalmatches = Match.objects.all().count()
+    top16winrates = sorted(Hero.objects.all(), key=lambda m: m.winrate, reverse = True)[:16]
+    top16gamesplayed = sorted(Hero.objects.all(), key=lambda m: m.totalgames, reverse = True)[:16]
+    
+
     # r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?key=" + key + "&partner=0")
     # livematches = json.loads(r.text)['game_list']
     # currentgames = []
@@ -52,4 +58,5 @@ def index(request):
     #     if total:
     #         currentgames.append(total)
 
-    return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict} )
+    return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict, 'totalmatches' : totalmatches, 'mostgames' : top16gamesplayed, 'highestwinrate': top16winrates} )
+

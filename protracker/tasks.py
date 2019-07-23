@@ -33,17 +33,20 @@ def update_livematch():
       if matchtoget.match_id not in currentlivematchids:
         matchdata = requests.get("http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1?key=" + key + "&match_id=" + str(matchtoget.match_id))
         if str(matchtoget.match_id) in matchdata.text:
+          if 'radiant_win' not in matchdata.text:
+            matchtoget.delete()
+            continue
           matchdata = json.loads(matchdata.text)['result']
           p, created = Match.objects.get_or_create(match_id = matchdata['match_id'], match_date = matchdata['start_time'])
           players = matchdata['players']
           if matchdata['radiant_win']:
-              for i in range(0,5):
-                  p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
-              for i in range(5,10):
-                  p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
+            for i in range(0,5):
+              p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
+            for i in range(5,10):
+              p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
           if not matchdata['radiant_win']:
-              for i in range(0,5):
-                  p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
-              for i in range(5,10):
-                  p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
-          matchtoget.delete() 
+            for i in range(0,5):
+              p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
+            for i in range(5,10):
+              p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
+        matchtoget.delete() 
