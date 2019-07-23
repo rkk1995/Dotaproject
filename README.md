@@ -1,5 +1,11 @@
 #DotaProject - created with django
 
+To run
+
+clone repository
+enter your API keys where specified (below)
+python manage.py runserver
+
 This app has 3 subapps.
 
 ### 1)ProTracker ###
@@ -12,8 +18,8 @@ Frontend is not mine. Backend is entirely my own.
 
 ![Homepage](http://puu.sh/DWx9S/df001079e3.jpg)
 
+
 ## Live Games Section ##
-![Homepage](https://puu.sh/DWx37/133d554d1a.png)
 
 Shows all live games with relevant pro players in my database.
 
@@ -24,6 +30,20 @@ Shows stats for high mmr pubs.
 
 ## Recent Matches ## 
 ![Homepage](http://puu.sh/DWx8G/b498cfa507.png)
+
+Eventually will show most recent matches of pro players.
+
+## how to run ##
+
+Requires Celery to run scheduled task of api calls.
+Open two terminals
+1st. `Celery -A dota2project worker -l info`
+2nd. `Celery -A dota2project beat -l info`
+
+Now that scheduled tasks are up and running
+`python manage.py runserver`
+Requires STEAM API Key. (its free) 
+
 
 ## 
 
@@ -43,8 +63,8 @@ Stats page of a player:
 
 To run clone repository and run following in terminal. To run ProTracker, additional steps described below.
 
-1) Pipenv Shell
-2) python manage.py runserver
+1) `Pipenv Shell`
+2) `python manage.py runserver`
 
 
 # twitterbot #
