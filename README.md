@@ -33,6 +33,10 @@ Eventually will show most recent matches of pro players.
 
 ## how to run ##
 
+
+clone repository 
+
+
 Requires Celery to run scheduled task of api calls.
 Open two terminals
 
@@ -41,7 +45,10 @@ Open two terminals
 2nd. `Celery -A dota2project beat -l info`
 
 Now that scheduled tasks are up and running
-`python manage.py runserver`
+
+1) `Pipenv Shell`
+2) `python manage.py runserver`
+
 Requires STEAM API Key. (its free) Enter key in /protracker/tasks.py
 
 
@@ -59,12 +66,6 @@ Stats page of a player:
 
 ![Your Stats Page](http://puu.sh/DNCuI/688c22ae15.png)
 
-## How to run ##
-
-To run clone repository and run following in terminal. To run ProTracker, additional steps described below.
-
-1) `Pipenv Shell`
-2) `python manage.py runserver`
 
 
 # twitterbot #
