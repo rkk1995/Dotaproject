@@ -17,13 +17,16 @@ class Hero(models.Model):
 
 class Match(models.Model):
     match_id = models.IntegerField()
-    match_date = models.DateTimeField('Match Date')
+    match_date = models.IntegerField('Match Date')
     heros_won = models.ManyToManyField(Hero, related_name='wins')
     heros_lost = models.ManyToManyField(Hero, related_name='losts')
     def __str__(self):
         return str(self.match_id)
 
-
+class MatchesToGet(models.Model):
+    match_id = models.IntegerField()
+    def __str__(self):
+        return str(self.match_id)
 
 class LiveMatch(models.Model):
     counter = models.IntegerField(default = 1)

@@ -21,13 +21,13 @@ print(dirname)
 # with open(os.path.join(dirname, "HeroImageDict.txt"), "wb") as myFile:
 #     pickle.dump(HeroImageDict, myFile)
 
-# with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
-#     HeroImageDict = pickle.load(myFile)
+with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
+    HeroImageDict = pickle.load(myFile)
 
 # print(HeroImageDict.keys())
 
 
-with open(os.path.join(dirname, "Livematches.txt"), "rb") as myFile:
-    HeroImageDict = pickle.load(myFile)
+# with open(os.path.join(dirname, "Livematches.txt"), "rb") as myFile:
+#     HeroImageDict = pickle.load(myFile)
 
 print(HeroImageDict)
