@@ -10,7 +10,22 @@ This app has 3 subapps.
 
 Frontend is not mine. Backend is entirely my own.
 
-![Homepage](http://puu.sh/DWx1Z/b7622ca6e2.jpg)
+![Homepage](http://puu.sh/DWx9S/df001079e3.jpg)
+
+## Live Games Section ##
+![Homepage](https://puu.sh/DWx37/133d554d1a.png)
+
+Shows all live games with relevant pro players in my database.
+
+## High MMR Pub Stats Section ##
+![Homepage](http://puu.sh/DWx6S/2321aa09e2.jpg)
+
+Shows stats for high mmr pubs.
+
+## Recent Matches ## 
+![Homepage](http://puu.sh/DWx8G/b498cfa507.png)
+
+## 
 
 # playerid - stats #
 
