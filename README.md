@@ -16,7 +16,7 @@ This app has 3 subapps.
 
 Frontend is not mine. Backend is entirely my own.
 
-![Homepage](http://puu.sh/DWx9S/df001079e3.jpg)
+![Homepage](http://puu.sh/DWx9S/df001079e3.jpg) (click for better image)
 
 
 ## Live Games Section ##
@@ -24,12 +24,10 @@ Frontend is not mine. Backend is entirely my own.
 Shows all live games with relevant pro players in my database.
 
 ## High MMR Pub Stats Section ##
-![Homepage](http://puu.sh/DWx6S/2321aa09e2.jpg)
 
 Shows stats for high mmr pubs.
 
-## Recent Matches ## 
-![Homepage](http://puu.sh/DWx8G/b498cfa507.png)
+## Recent Matches & ## 
 
 Eventually will show most recent matches of pro players.
 
@@ -37,12 +35,14 @@ Eventually will show most recent matches of pro players.
 
 Requires Celery to run scheduled task of api calls.
 Open two terminals
+
 1st. `Celery -A dota2project worker -l info`
+
 2nd. `Celery -A dota2project beat -l info`
 
 Now that scheduled tasks are up and running
 `python manage.py runserver`
-Requires STEAM API Key. (its free) 
+Requires STEAM API Key. (its free) Enter key in /protracker/tasks.py
 
 
 ## 
