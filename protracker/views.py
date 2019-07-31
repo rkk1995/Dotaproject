@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from protracker.ProTrackerFunctions import converttime
 import requests, json, os, pickle
-from protracker.models import LiveMatch, MatchesToGet, Match, Hero
+from protracker.models import LiveMatch, MatchesToGet, Match, Hero, Player, Role
 from django.db.models import Count
 
 dirname = os.path.dirname(__file__) + "/databases"
@@ -47,16 +47,8 @@ def index(request):
     totalmatches = Match.objects.all().count()
     top16winrates = sorted(Hero.objects.all(), key=lambda m: m.winrate, reverse = True)[:16]
     top16gamesplayed = sorted(Hero.objects.all(), key=lambda m: m.totalgames, reverse = True)[:16]
-    
-
-    # r = requests.get("https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?key=" + key + "&partner=0")
-    # livematches = json.loads(r.text)['game_list']
-    # currentgames = []
-
-    # for i in livematches:
-    #     total = GetProPlayersFromMatch(i)
-    #     if total:
-    #         currentgames.append(total)
 
     return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict, 'totalmatches' : totalmatches, 'mostgames' : top16gamesplayed, 'highestwinrate': top16winrates} )
 
+def player(request, player_name):
+    return HttpResponse(player_name)

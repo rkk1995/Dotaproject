@@ -1,4 +1,5 @@
 import os, pickle, json, requests
+from protracker.models import MatchesToGet, Player, RoleToGet
 
 dirname = "D:\Coding\Dotaproject\protracker\databases"
 key = "BDAECC2049E139D32D5D7AEDEFC23304"
@@ -13,14 +14,15 @@ def converttime(seconds):
 with open(os.path.join(dirname, "ProPlayerDict.txt"), "rb") as myFile:
     ProPlayerDict = pickle.load(myFile)
 
-def GetProPlayersFromMatch(data):
-    game = data
-    players = data['players']
+def GetProPlayersFromMatch(game):
+    players = game['players']
+    matchid = game['match_id']
     allplayers = []
     gameinfo = {}
     for index, player in enumerate(players):
         if player['account_id'] in ProPlayerDict.keys():
             allplayers.append({'playername': ProPlayerDict[player['account_id']], 'hero_id': player['hero_id'],'player_slot': index})
+            RoleToGet.objects.create(matchtoget = MatchesToGet.objects.get(match_id = matchid), player = Player.objects.get(player_name = ProPlayerDict[player['account_id']]), slot = index )
     if allplayers:
         server = game['server_steam_id']
         serverinfo = requests.get("https://api.steampowered.com/IDOTA2MatchStats_570/GetRealtimeStats/v1/?key=" + key + "&partner=0&server_steam_id=" + str(server)).text

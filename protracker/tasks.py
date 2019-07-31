@@ -1,6 +1,6 @@
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
-from protracker.models import Hero, Match, LiveMatch, MatchesToGet
+from protracker.models import Hero, Match, LiveMatch, MatchesToGet, Player, Role, RoleToGet
 import requests, json, pickle, os
 from time import sleep
 
@@ -30,9 +30,10 @@ def update_livematch():
         currentgames.append(total)
     LiveMatch.objects.create(myList = json.dumps(currentgames))
     for matchtoget in MatchesToGet.objects.all():
-      if matchtoget.match_id not in currentlivematchids:
-        matchdata = requests.get("http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1?key=" + key + "&match_id=" + str(matchtoget.match_id))
-        if str(matchtoget.match_id) in matchdata.text:
+      matchid = matchtoget.match_id
+      if matchid not in currentlivematchids:
+        matchdata = requests.get("http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1?key=" + key + "&match_id=" + str(matchid))
+        if str(matchid) in matchdata.text:
           if 'radiant_win' not in matchdata.text:
             matchtoget.delete()
             continue
@@ -40,13 +41,27 @@ def update_livematch():
           p, created = Match.objects.get_or_create(match_id = matchdata['match_id'], match_date = matchdata['start_time'])
           players = matchdata['players']
           if matchdata['radiant_win']:
+            win = 'radiant'
             for i in range(0,5):
               p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
             for i in range(5,10):
               p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
           if not matchdata['radiant_win']:
+            win = 'dire'
             for i in range(0,5):
               p.heros_lost.add(Hero.objects.get(hero_id=players[i]['hero_id']))
             for i in range(5,10):
               p.heros_won.add(Hero.objects.get(hero_id=players[i]['hero_id']))
+          for i in matchtoget.roletoget_set.all():
+            if win == 'radiant':
+              if i.slot < 5 :
+                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
+              if i.slot >= 5 :
+                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False )
+            else:
+              if i.slot < 5 :
+                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False)
+              if i.slot >= 5 :
+                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
+            i.delete()    
         matchtoget.delete() 
