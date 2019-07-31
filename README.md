@@ -1,4 +1,4 @@
-#DotaProject - created with django
+#DotaProject - created with django + python
 
 To run
 
