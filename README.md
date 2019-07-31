@@ -1,4 +1,4 @@
-#DotaProject - created with django
+#DotaProject - created with django + python
 
 To run
 
@@ -14,7 +14,7 @@ This app has 3 subapps.
 
 # ProTracker #
 
-Frontend is not mine. Backend is entirely my own.
+Frontend is not mine. Backend is mine.
 
 ![Homepage](http://puu.sh/DWx9S/df001079e3.jpg) (click for better image)
 
