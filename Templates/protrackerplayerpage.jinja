@@ -111,12 +111,30 @@
         <div id="hero_page" >
             <div id="hero_recent_matches">
                 <div class="hero_recent_meta">
-                    <h2>{{player_name}}<h2>
+                    <h2>{{player.player_name}}<h2>
                     <a href="http://www.dotabuff.com/players/{{player.player_id}}" title="Dotabuff">Dotabuff</a>
                      •
+
                     <a href="http://www.opendota.com/players/{{player.player_id}}" title="OpenDota">OpenDota</a>
                      •
+                    
                     <a href="https://stratz.com/player/{{player.player_id}}" class="info">STRATZ</a>
+                     •
+                    
+                </div>
+                <div class="hero_recent_stats">
+                    <div class="hero_recent_stats_left">
+                        <h3>Match History</h3>
+                        <span>matches from the last 7 days
+                        (
+                        <a href="#" class="toggle_losses2 hide" style="display: inline;">hide losses</a>
+                        <a href="#" class="toggle_losses2 show" style="display: none;">show losses</a>
+                        )
+                        </span>
+                        {% for match in playermatches %}
+                        
+
+                        {% endfor %}
                 </div>
             </div>
         </div>

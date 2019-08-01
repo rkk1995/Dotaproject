@@ -25,8 +25,12 @@ def index(request):
 def player(request, player_name):
     a = LiveMatch.objects.get(counter=1).myList
     currentgames = json.decoder.JSONDecoder().decode(a)
-    a = time.time()
-    playermatches = Match.objects.filter(role__player = Player.objects.get(player_name__iexact = player_name), match_date__gte = time.time() - 604800)
     player = Player.objects.get(player_name__iexact = player_name)
-    return render(request, 'protrackerplayerpage.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict , 'player_name' : player_name, 'player': player} )
+    playermatches = Match.objects.filter(role__player = player, match_date__gte = time.time() - 604800)
+    playerrecentmatches = []
+    for match in playermatches:
+        print(match)
+        playerrecentmatches.append({'match_id':match.match_id, 'mmr': match.match_mmr, 'win': match.role_set.get(player=player).win, 'hero':match.role_set.get(player=player).hero} )
+    print(playerrecentmatches)
+    return render(request, 'protrackerplayerpage.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict ,  'player': player, 'playermatches' : playermatches} )
 
