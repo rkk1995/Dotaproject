@@ -23,8 +23,9 @@ def update_livematch():
     livematches = json.loads(r.text)['game_list']
     currentgames=[]
     for i in livematches:
-      MatchesToGet.objects.get_or_create(match_id = i['match_id'])
+      MatchesToGet.objects.get_or_create(match_id = i['match_id'], match_mmr = i["average_mmr"])
       currentlivematchids.append(i['match_id'])
+      print(i)
       total = GetProPlayersFromMatch(i)
       if total:
         currentgames.append(total)
@@ -38,7 +39,7 @@ def update_livematch():
             matchtoget.delete()
             continue
           matchdata = json.loads(matchdata.text)['result']
-          p, created = Match.objects.get_or_create(match_id = matchdata['match_id'], match_date = matchdata['start_time'])
+          p, created = Match.objects.get_or_create(match_id = matchdata['match_id'], match_date = matchdata['start_time'], match_mmr = matchtoget.match_mmr)
           players = matchdata['players']
           if matchdata['radiant_win']:
             win = 'radiant'
@@ -55,13 +56,13 @@ def update_livematch():
           for i in matchtoget.roletoget_set.all():
             if win == 'radiant':
               if i.slot < 5 :
-                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
+                Role.objects.get_or_create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
               if i.slot >= 5 :
-                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False )
+                Role.objects.get_or_create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False )
             else:
               if i.slot < 5 :
-                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False)
+                Role.objects.get_or_create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = False)
               if i.slot >= 5 :
-                Role.objects.create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
-            i.delete()    
-        matchtoget.delete() 
+                Role.objects.get_or_create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
+            # i.delete()    
+        # matchtoget.delete() 

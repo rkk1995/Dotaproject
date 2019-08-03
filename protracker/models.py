@@ -43,14 +43,11 @@ class Role(models.Model):
     hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
     win = models.BooleanField()
     def __str__(self):
-        return player.player_name
-    
-    class Meta:
-         unique_together = ['match', 'player']
-
+        return self.player.player_name
 
 class MatchesToGet(models.Model):
     match_id = models.IntegerField()
+    match_mmr = models.IntegerField(default = 1)
     def __str__(self):
         return str(self.match_id)
 

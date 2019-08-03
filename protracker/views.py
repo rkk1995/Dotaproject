@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from protracker.ProTrackerFunctions import converttime
+from protracker.ProTrackerFunctions import converttime, time, display_time
 import requests, json, os, pickle
 from protracker.models import LiveMatch, MatchesToGet, Match, Hero, Player, Role
 from django.db.models import Count
@@ -20,7 +20,7 @@ def index(request):
     top16winrates = sorted(Hero.objects.all(), key=lambda m: m.winrate, reverse = True)[:16]
     top16gamesplayed = sorted(Hero.objects.all(), key=lambda m: m.totalgames, reverse = True)[:16]
 
-    return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict, 'totalmatches' : totalmatches, 'mostgames' : top16gamesplayed, 'highestwinrate': top16winrates} )
+    return render(request, 'protracker.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict, 'totalmatches' : totalmatches, 'mostgames' : top16gamesplayed, 'highestwinrate': top16winrates, 'all_players':Player.objects.all()} )
 
 def player(request, player_name):
     a = LiveMatch.objects.get(counter=1).myList
@@ -29,8 +29,10 @@ def player(request, player_name):
     playermatches = Match.objects.filter(role__player = player, match_date__gte = time.time() - 604800)
     playerrecentmatches = []
     for match in playermatches:
-        print(match)
-        playerrecentmatches.append({'match_id':match.match_id, 'mmr': match.match_mmr, 'win': match.role_set.get(player=player).win, 'hero':match.role_set.get(player=player).hero} )
+        win = match.role_set.get(player=player).win
+        a = match.role_set.all()
+        teammates = a.exclude(player = player).filter(win = win)
+        opponents = a.exclude(player = player).filter(win = not win)
+        playerrecentmatches.append({'match_id':match.match_id, 'mmr': match.match_mmr, 'win': win , 'hero':match.role_set.get(player=player).hero.hero_id, 'gamedate': display_time(match.match_date), 'teammates': teammates if teammates.count() > 0 else False, 'opponents': opponents if opponents.count() > 0 else False} )   
     print(playerrecentmatches)
-    return render(request, 'protrackerplayerpage.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict ,  'player': player, 'playermatches' : playermatches} )
-
+    return render(request, 'protrackerplayerpage.jinja', {'livematches': currentgames, 'HeroImageDict': HeroImageDict ,  'player': player, 'playermatches' : playerrecentmatches, 'all_players':Player.objects.all()} )
