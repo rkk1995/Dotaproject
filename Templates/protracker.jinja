@@ -155,20 +155,30 @@
                 <div id="wrap_">
                     <div id="most_active_pros">
                         <div class="most_head">
-                            Most active pros -- section to be added
+                            Most active pros
                         </div>
+                        {% for pro in mostprogames %}
+                            <div class="active_pro">    
+                                <a href="/player/{{pro.player_name}}" title={{pro.player_name}}>{{pro.player_name}}</a> played {{pro.totalgames}} matches ({% widthratio pro.winrate 1 100 %}%)
+                            </div>
+                        {% endfor %}
                     </div>
 
                     <div id="most_successful_pros">
                         <div class="most_head">
-                            Most successful pros -- section to be added
+                            Most successful pros
                         </div>
+                        {% for pro in highestprowinrates %}
+                            <div class="active_pro">    
+                                <a href="/player/{{pro.player_name}}" title={{pro.player_name}}>{{pro.player_name}}</a> won {{pro.wins}} out of {{pro.totalgames}} matches ({% widthratio pro.winrate 1 100 %}% winrate)
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
         </div>
 
     </div>
-    <div id = "footer">
+    <!-- <div id = "footer">
         <div id = "faq">
             FAQ
             <div class="faq_e">
@@ -196,6 +206,6 @@
                  •
             {% endfor %}
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

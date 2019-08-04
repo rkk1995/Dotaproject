@@ -60,5 +60,3 @@ def display_time(seconds, granularity=1):
                 name = name.rstrip('s')
             result.append("{} {}".format(int(value), name))
     return ', '.join(result[:granularity])
-
-print(display_time(1564722222))
