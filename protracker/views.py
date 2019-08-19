@@ -12,7 +12,7 @@ dirname = os.path.dirname(__file__) + "/databases"
 with open(os.path.join(dirname, "HeroImageDict.txt"), "rb") as myFile:
     HeroImageDict = pickle.load(myFile)
 
-key = "BDAECC2049E139D32D5D7AEDEFC23304"
+key = ""
 
 
 def index(request):

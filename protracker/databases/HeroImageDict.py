@@ -3,7 +3,7 @@ import json, os, pickle
 
 #Creates Hero Image Dictionary
 
-# key = "BDAECC2049E139D32D5D7AEDEFC23304"
+# key = ""
 # r = requests.get("https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=BDAECC2049E139D32D5D7AEDEFC23304&language=en")
 # b = json.loads(r.text)['result']['heroes']
 dirname = os.path.dirname(__file__)

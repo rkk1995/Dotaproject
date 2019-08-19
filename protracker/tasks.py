@@ -4,7 +4,7 @@ from protracker.models import Hero, Match, LiveMatch, MatchesToGet, Player, Role
 import requests, json, pickle, os
 from time import sleep
 
-key = "BDAECC2049E139D32D5D7AEDEFC23304"
+key = ""
 dirname = 'D:/coding/test/mysite/polls/databases'
 
 

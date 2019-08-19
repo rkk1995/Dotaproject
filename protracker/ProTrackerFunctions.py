@@ -2,7 +2,7 @@ import os, pickle, json, requests
 from protracker.models import MatchesToGet, Player, RoleToGet
 import time
 dirname = "D:\Coding\Dotaproject\protracker\databases"
-key = "BDAECC2049E139D32D5D7AEDEFC23304"
+key = ""
 
 def converttime(seconds):
     minutes, seconds = divmod(seconds, 60)

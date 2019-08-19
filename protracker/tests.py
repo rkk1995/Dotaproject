@@ -1,7 +1,7 @@
 import requests, json, os, pickle
 
 dirname = os.path.dirname(__file__)
-key = "BDAECC2049E139D32D5D7AEDEFC23304"
+key = ""
 
 with open(os.path.join(dirname, "ProPlayerDict.txt"), "rb") as myFile:
        ProPlayerDict = pickle.load(myFile)
