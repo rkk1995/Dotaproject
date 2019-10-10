@@ -4,7 +4,7 @@ from protracker.models import Hero, Match, LiveMatch, MatchesToGet, Player, Role
 import requests, json, pickle, os
 from time import sleep
 
-key = ""
+key = "BDAECC2049E139D32D5D7AEDEFC23304"
 dirname = 'D:/coding/test/mysite/polls/databases'
 
 
@@ -25,7 +25,6 @@ def update_livematch():
     for i in livematches:
       MatchesToGet.objects.get_or_create(match_id = i['match_id'], match_mmr = i["average_mmr"])
       currentlivematchids.append(i['match_id'])
-      print(i)
       total = GetProPlayersFromMatch(i)
       if total:
         currentgames.append(total)
@@ -65,4 +64,4 @@ def update_livematch():
               if i.slot >= 5 :
                 Role.objects.get_or_create(match = Match.objects.get(match_id = matchid), player = i.player, hero = Hero.objects.get(hero_id = players[i.slot]['hero_id']) , win = True )
             # i.delete()    
-        # matchtoget.delete() 
+        matchtoget.delete() 
