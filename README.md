@@ -16,7 +16,7 @@ This app has 3 subapps.
 
 Frontend is not mine. Backend is mine.
 
-![Homepage](http://puu.sh/DWx9S/df001079e3.jpg) (click for better image)
+![Homepage](https://user-images.githubusercontent.com/50536089/80338832-2e8cf500-8812-11ea-84fe-c2e000f82dc6.jpg) (click for better image)
 
 
 ## Live Games Section ##
@@ -59,12 +59,12 @@ Requires STEAM API Key. (its free) Enter key in /protracker/tasks.py
 This is an app where you can get the last 20 matches of any player by searching their steamid32. If you dont know yours or another players, it can be found here https://steamid.xyz/ .
 
 ## Homepage: ## 
-![Homepage](http://puu.sh/DNCtR/2f3061ef6b.png)
+![Homepage](https://user-images.githubusercontent.com/50536089/80339109-c985cf00-8812-11ea-90a8-64198b76a5f7.png)
 
 
 Stats page of a player:
 
-![Your Stats Page](http://puu.sh/DNCuI/688c22ae15.png)
+![Your Stats Page](https://user-images.githubusercontent.com/50536089/80339103-c7237500-8812-11ea-9327-e4e759dfc759.png)
 
 
 
@@ -79,7 +79,7 @@ So @Dota2Bot_test  121769650
 Whenever said player plays a match from the time you tweeted, you'll be notified via tweet.
  
 
-![Alt text](http://puu.sh/DTr9l/c78861a7db.png "Example")
+![Alt text](https://user-images.githubusercontent.com/50536089/80338933-76138100-8812-11ea-9f1c-53a623780bfd.png)
 
 
 
